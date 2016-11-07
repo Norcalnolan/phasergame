@@ -13,13 +13,12 @@ game_state.main.prototype = {
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('bullet', 'assets/Bullet.png');
     game.load.spritesheet('New Piskel', 'assets/New Piskel.png', 32, 32);
   },
 
 
   create: function() {
-    this.score = 0;
+   
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.sprite(0, 0, 'sky');
     game.add.sprite(0, 0, 'star');
@@ -35,7 +34,7 @@ game_state.main.prototype = {
     ground.scale.setTo(2, 2);
     ground.body.immovable = true;
     
-   var ledge = this.platforms.create(100, 300, 'ground');
+   var ledge = this.platforms.create(200, 300, 'ground');
     ledge.body.immovable = true;
     ledge.width = 100;
     this.player = game.add.sprite(32, game.world.height - 150, 'New Piskel')
@@ -55,14 +54,9 @@ game_state.main.prototype = {
       star.body.gravity.y = 300;
       star.body.bounce.y = .5 + Math.random() * 0.2;
     }
-    this.bullet = game.add.sprite(32, game.world.height - 150, 'bullet');
-    this.bullet.enableBody = true;
-    for (var i = 0; i < 12; i++) {
-      var bullet = this.Bullet.create(i * 70, 0, 'bullet');
-      bullet.body.gravity.y = 300;
-      bullet.body.bounce.y = 0 + Math.random() * 0.2;
-    }
-   this.scoreText = game.add.text(16,16, 'Score: ' + this.score);
+    
+
+  
   },
 
 
@@ -95,12 +89,11 @@ game_state.main.prototype = {
 
   },
   collectStar: function(player, star) {
-    this.score += 10;
-    this.scoreText.text = 'Score: ' + this.score;
+    
     star.kill();
   }
 
 
 }
 game.state.add('main', game_state.main);
-game.state.start('main');
+
